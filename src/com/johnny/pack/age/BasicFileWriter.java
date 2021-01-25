@@ -2,6 +2,7 @@ package com.johnny.pack.age;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -15,10 +16,10 @@ public class BasicFileWriter extends Application {
         launch(args);
     }
 
-    TextField txtTitle;
-    TextField txtYear;
-    TextField txtPrice;
-    PrintWriter out;
+    private TextField txtTitle;
+    private TextField txtYear;
+    private TextField txtPrice;
+    private PrintWriter out;
 
     @Override
     public void start(Stage primaryStage){
@@ -52,20 +53,23 @@ public class BasicFileWriter extends Application {
         txtPrice.setPadding(new Insets(10, 10, 10,10));
         txtPrice.setPromptText("24.95");
 
-        HBox panePrice = new HBox();
+        HBox panePrice = new HBox(10);
         panePrice.getChildren().addAll(lblPrice, txtPrice);
 
         Button btnEnter = new Button("Enter");
         btnEnter.setPadding(new Insets(10, 10, 10, 10));
+        btnEnter.setAlignment(Pos.BOTTOM_RIGHT);
         btnEnter.setOnAction(e -> btnEnter_Clicked());
 
         Button btnQuit = new Button("Quit");
         btnQuit.setPadding(new Insets(10, 10, 10, 10));
+        btnQuit.setAlignment(Pos.BOTTOM_RIGHT);
         btnQuit.setOnAction(e -> btnQuit_Clicked());
 
         HBox paneButton = new HBox(10, btnEnter, btnQuit);
 
         VBox mainPane = new VBox(10);
+        mainPane.prefWidth(400);
         mainPane.getChildren().addAll(paneTitle, paneYear, panePrice, paneButton);
 
         Scene scene = new Scene(mainPane);
@@ -81,9 +85,8 @@ public class BasicFileWriter extends Application {
             System.out.println("PrintWriter closed!");
         } catch (NullPointerException e){
             System.out.println("Nothing to close: " + e.getMessage());
-        } finally{
-            System.exit(0);
         }
+        System.exit(0);
     }
 
     private void btnEnter_Clicked() {
